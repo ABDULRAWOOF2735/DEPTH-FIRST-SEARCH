@@ -1,7 +1,7 @@
 # BREADTH-FIRST-SEARCH
 <h1>ExpNo 3 : Implement Breadth First Search Traversal of a Graph</h1> 
-<h3>Name:  ABDUL RAWOOF </h3>
-<h3>Register Number:  21222423000 </h3>
+<h3>Name:  SHREE CHANDRU R </h3>
+<h3>Register Number:  212224230264</h3>
 <H3>Aim:</H3>
 <p>To Implement Breadth First Search Traversal of a Graph using Python 3.</p>
 <h3>Theory:</h3>
@@ -70,37 +70,59 @@ Now, Queue becomes empty, So, terminate these process of iteration.
 <h3>Program</h3>
 
 ```python
-from collections import deque
-from collections import defaultdict
+'''BREADTH FIRST SEARCH
+  - USES QUEUE AND ITERATION
+'''
+from collections import defaultdict, deque
+import networkx as nx
+import matplotlib.pyplot as plt
 
-def bfs(graph, start, visited, path):
-    queue = deque()
-    queue.append(start)
-    visited[start] = True
+def bfs(graph,start,visited,path):
+    queue=deque()
     path.append(start)
-
-    while queue:
-        tmpnode = queue.popleft()
+    queue.append(start)
+    visited[start]=True
+    while len(queue)!=0:
+        tmpnode=queue.popleft()
         for neighbour in graph[tmpnode]:
-            if not visited[neighbour]:
-                visited[neighbour] = True
+            if visited[neighbour]==False:
                 queue.append(neighbour)
                 path.append(neighbour)
+                visited[neighbour]=True
     return path
+        
+graph=defaultdict(list)
+G=nx.Graph()
 
-graph = defaultdict(list)
-v, e = map(int, input().split())
+nodes,edges=map(int,input().split())
+for _ in range(edges):
+    u,v=map(str,input().split())
+    graph[u].append(v)
+    graph[v].append(u)
+    G.add_edge(u,v)
 
-for _ in range(e):
-    u, vtx = input().split()
-    graph[u].append(vtx)
-    graph[vtx].append(u)
+start=input()
+visited=defaultdict(bool)
+path=[]
+traversedpath=bfs(graph,start,visited,path)
+print(traversedpath)
 
-start = input()     
-path = []
-visited = defaultdict(bool)
+fig, ax = plt.subplots(figsize=(6,6))
+pos = nx.spring_layout(G)
 
-print(bfs(graph, start, visited, path))
+nx.draw(
+    G,
+    pos,
+    ax=ax,
+    with_labels=True,
+    node_color="lightgreen",
+    edge_color="black",
+    node_size=2000,
+    font_weight="bold"
+)
+
+plt.show()
+
 
 ```
 
@@ -122,6 +144,9 @@ G F <BR>
 <hr>
 ['A', 'B', 'C', 'F', 'E', 'D', 'G']
 
+<img width="1407" height="864" alt="Screenshot 2026-02-09 141153" src="https://github.com/user-attachments/assets/c2ab525d-16c6-4622-abc5-d6b610db5701" />
+
+
 <hr>
 
 <hr>
@@ -138,7 +163,17 @@ G F <BR>
 <h3>Sample Output</h3>
 <hr>
 ['0', '1', '2', '3', '4']
+
+<img width="1316" height="803" alt="Screenshot 2026-02-09 141556" src="https://github.com/user-attachments/assets/bb0f6a23-157d-4c73-9267-b833ce09f25b" />
+
 <hr>
 <h3>Result:</h3>
 <hr>
 <p>Thus,a Graph was constructed and implementation of Breadth First Search for the same graph was done successfully.</p>
+
+
+
+
+
+
+
